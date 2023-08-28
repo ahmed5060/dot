@@ -36,10 +36,6 @@ class _AboutScreenState extends State<AboutScreen> {
             actions: [
               IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_forward_ios, color: Colors.black,))
             ],
-            leading: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
             title: Text("من نحن", style: TextStyle(color: Colors.black, fontSize: 25.sp, fontWeight: FontWeight.w600),),
           ),
           body: ConditionalBuilder(

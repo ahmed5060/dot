@@ -62,48 +62,53 @@ class _AllNewsScreenState extends State<AllNewsScreen> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 230.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.r),
-                        image: DecorationImage(
-                            image: NetworkImage("http://dot.medsec.co/${allNewsByCategoryModel!.data![0].img}"),
-                            fit: BoxFit.cover
-                        ),
-                      ),
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.r),
-                              gradient: const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: <Color>[Colors.transparent, Colors.black87]),
-                            ),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: ((context) => NewsDetailsScreen(id: allNewsByCategoryModel!.data![0].id!))));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 230.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          image: DecorationImage(
+                              image: NetworkImage("http://dot.medsec.co/${allNewsByCategoryModel!.data![0].img}"),
+                              fit: BoxFit.cover
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text(allNewsByCategoryModel!.data![0].head!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                                SizedBox(height: 15.h,),
-                                SizedBox(
-                                  height: 50.h,
-                                  child: HtmlWidget(
-                                    allNewsByCategoryModel!.data![0].body!,
-                                    textStyle: const TextStyle(
-                                      color: Colors.grey,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.r),
+                                gradient: const LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: <Color>[Colors.transparent, Colors.black87]),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(allNewsByCategoryModel!.data![0].head!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                  SizedBox(height: 15.h,),
+                                  SizedBox(
+                                    height: 50.h,
+                                    child: HtmlWidget(
+                                      allNewsByCategoryModel!.data![0].body!,
+                                      textStyle: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
 

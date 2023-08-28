@@ -94,13 +94,10 @@ class ProgramsView extends StatelessWidget {
                                 children: [
                                   Text(allNewsByCategoryModel!.data![0].head!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                                   SizedBox(height: 15.h,),
-                                  SizedBox(
-                                    height: 50.h,
-                                    child: HtmlWidget(
-                                      allNewsByCategoryModel!.data![0].body!,
-                                      textStyle: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
+                                  HtmlWidget(
+                                    allNewsByCategoryModel!.data![0].body!.substring(0, 100),
+                                    textStyle: const TextStyle(
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ],

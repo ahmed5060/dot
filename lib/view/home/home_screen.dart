@@ -5,14 +5,14 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import '../../bloc/cubit.dart';
 import '../../bloc/state.dart';
+import '../../constants/drawer.dart';
 import '../../constants/programs_view.dart';
+import '../../constants/slider_card.dart';
 import '../../constants/view.dart';
 import '../../models/MainCategoriesModel.dart';
 import '../../models/SliderModel.dart';
-import '../about/about_screen.dart';
 import '../live/live_screen.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool get_slider = false;
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   bool x = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         builder: (BuildContext context, state) => Scaffold(
           backgroundColor: Colors.white,
+          key: _scaffoldKey,
+          drawer: MyDrawer(context: context, inHome: true),
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: 0,
@@ -69,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             leading: IconButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: ((context) => const AboutScreen())));
+                _scaffoldKey.currentState!.openDrawer();
               },
               icon:  const Icon(
                 Icons.menu,
@@ -97,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
 
-                    Padding(
+                    if(sliderItemList!.sliderModel!.isNotEmpty) Padding(
                       padding: const EdgeInsets.all(20),
                       child: CarouselSlider.builder(
                         itemCount: sliderItemList!.sliderModel!.length,
@@ -113,65 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           viewportFraction: 0.8,
                           initialPage: 0,
                         ),
-                        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => Container(
-                              width: double.infinity,
-                              height: 180.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.r),
-                                image: DecorationImage(
-                                    image: NetworkImage("http://dot.medsec.co/${sliderItemList!.sliderModel![itemIndex].img}"),
-                                    fit: BoxFit.cover
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.r),
-                                      gradient: const LinearGradient(
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: <Color>[Colors.transparent, Colors.black87]),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(30.r),
-                                              color: Colors.white
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                                            child: Text(sliderItemList!.sliderModel![itemIndex].categories![0].name!),
-                                          ),
-                                        ),
-
-                                        Column(
-                                          children: [
-                                            Text(sliderItemList!.sliderModel![itemIndex].head!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                                            SizedBox(height: 15.h,),
-                                            SizedBox(
-                                              height: 50.h,
-                                              child: HtmlWidget(
-                                                sliderItemList!.sliderModel![itemIndex].body!,
-                                                textStyle: const TextStyle(
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => SliderCard(id: sliderItemList!.sliderModel![itemIndex].id, image: sliderItemList!.sliderModel![itemIndex].img, cat_name: sliderItemList!.sliderModel![itemIndex].categories![0].name, head: sliderItemList!.sliderModel![itemIndex].head, body: sliderItemList!.sliderModel![itemIndex].body,),
                       ),
                     ),
 

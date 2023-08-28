@@ -1,7 +1,9 @@
 
 import '../models/AllNewsByCategoryModel.dart';
+import '../models/AllProgramsModel.dart';
 import '../models/MainCategoriesModel.dart';
 import '../models/NewsDetailsModel.dart';
+import '../models/ProgramModel.dart';
 import '../models/SettingsModel.dart';
 import '../models/SliderModel.dart';
 
@@ -67,4 +69,28 @@ class GetSettingsSuccessState extends AppStates {
 class GetSettingsErrorState extends AppStates {
   final String error;
   GetSettingsErrorState(this.error);
+}
+
+class GetAllProgramsLoadingState extends AppStates {}
+
+class GetAllProgramsSuccessState extends AppStates {
+  final AllProgramsItemList allProgramsItemList;
+  GetAllProgramsSuccessState(this.allProgramsItemList);
+}
+
+class GetAllProgramsErrorState extends AppStates {
+  final String error;
+  GetAllProgramsErrorState(this.error);
+}
+
+class GetProgramLoadingState extends AppStates {}
+
+class GetProgramSuccessState extends AppStates {
+  final ProgramModel programModel;
+  GetProgramSuccessState(this.programModel);
+}
+
+class GetProgramErrorState extends AppStates {
+  final String error;
+  GetProgramErrorState(this.error);
 }

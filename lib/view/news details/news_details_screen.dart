@@ -52,7 +52,7 @@ class NewsDetailsScreen extends StatelessWidget {
 
                     Container(
                       width: double.infinity,
-                      height: 180.h,
+                      height: 200.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         image: DecorationImage(

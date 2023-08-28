@@ -3,8 +3,10 @@ import 'package:dot/bloc/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../dio/dio_helper.dart';
 import '../models/AllNewsByCategoryModel.dart';
+import '../models/AllProgramsModel.dart';
 import '../models/MainCategoriesModel.dart';
 import '../models/NewsDetailsModel.dart';
+import '../models/ProgramModel.dart';
 import '../models/SettingsModel.dart';
 import '../models/SliderModel.dart';
 
@@ -100,6 +102,44 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetSettingsSuccessState(settingsModel!));
     }).catchError((error) {
       emit(GetSettingsErrorState(error.toString()));
+      print("******************************");
+      print(error.toString());
+      print("******************************");
+    });
+  }
+
+
+  AllProgramsItemList? allProgramsItemList;
+
+  void GetAllPrograms() {
+    emit(GetAllProgramsLoadingState());
+    DioHelper.getData(
+      url: 'api/myprograms',
+    ).then((value) {
+      allProgramsItemList = AllProgramsItemList.fromJson(value.data);
+      emit(GetAllProgramsSuccessState(allProgramsItemList!));
+    }).catchError((error) {
+      emit(GetAllProgramsErrorState(error.toString()));
+      print("******************************");
+      print(error.toString());
+      print("******************************");
+    });
+  }
+
+
+  ProgramModel? programModel;
+
+  void GetProgram({
+    int? id,
+}) {
+    emit(GetProgramLoadingState());
+    DioHelper.getData(
+      url: 'api/myprograms/$id',
+    ).then((value) {
+      programModel = ProgramModel.fromJson(value.data);
+      emit(GetProgramSuccessState(programModel!));
+    }).catchError((error) {
+      emit(GetProgramErrorState(error.toString()));
       print("******************************");
       print(error.toString());
       print("******************************");
