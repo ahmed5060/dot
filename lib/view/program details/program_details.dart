@@ -21,9 +21,7 @@ class _ProgramDetailsState extends State<ProgramDetails> {
   @override
   void initState() {
     controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.network(
-        widget.video!.toString(),
-      ),
+      playVideoFrom: PlayVideoFrom.youtube(widget.video!.toString()),
     )..initialise();
     super.initState();
   }
