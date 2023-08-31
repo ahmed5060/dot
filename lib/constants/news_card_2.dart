@@ -27,7 +27,6 @@ class NewsCard2 extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
           child: Container(
             width: 240.w,
-            height: 240.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
             ),
@@ -48,7 +47,7 @@ class NewsCard2 extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: HtmlWidget(text!, textStyle: const TextStyle(fontWeight: FontWeight.bold),),
+                  child: HtmlWidget(text!.length < 100 ? text! : text!.substring(0, 100), textStyle: const TextStyle(fontWeight: FontWeight.bold),),
                 ),
 
                 const Spacer(),

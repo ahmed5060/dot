@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'Helper/Cache_helper.dart';
 import 'bloc/bloc_observer.dart';
 import 'bloc/cubit.dart';
 import 'bloc/state.dart';
@@ -13,7 +12,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
-  await CacheHelper.init();
   runApp(const MyApp());
 }
 

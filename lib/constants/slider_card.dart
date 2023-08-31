@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-
 import '../view/news details/news_details_screen.dart';
 
 class SliderCard extends StatelessWidget {
@@ -64,13 +62,6 @@ class SliderCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(head!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                      HtmlWidget(
-                        body!.substring(0, 100),
-                        textStyle: const TextStyle(
-                          color: Colors.grey,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
                     ],
                   ),
                 ],

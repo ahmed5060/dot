@@ -1,4 +1,7 @@
 
+import 'package:dot/models/AdsModel.dart';
+import 'package:dot/models/UrgentModel.dart';
+
 import '../models/AllNewsByCategoryModel.dart';
 import '../models/AllProgramsModel.dart';
 import '../models/MainCategoriesModel.dart';
@@ -93,4 +96,28 @@ class GetProgramSuccessState extends AppStates {
 class GetProgramErrorState extends AppStates {
   final String error;
   GetProgramErrorState(this.error);
+}
+
+class GetAdsLoadingState extends AppStates {}
+
+class GetAdsSuccessState extends AppStates {
+  final AdsItemList adsItemList;
+  GetAdsSuccessState(this.adsItemList);
+}
+
+class GetAdsErrorState extends AppStates {
+  final String error;
+  GetAdsErrorState(this.error);
+}
+
+class GetUrgentLoadingState extends AppStates {}
+
+class GetUrgentSuccessState extends AppStates {
+  final UrgentItemList urgentItemList;
+  GetUrgentSuccessState(this.urgentItemList);
+}
+
+class GetUrgentErrorState extends AppStates {
+  final String error;
+  GetUrgentErrorState(this.error);
 }

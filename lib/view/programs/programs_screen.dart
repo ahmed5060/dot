@@ -10,6 +10,7 @@ import '../../bloc/state.dart';
 import '../../constants/drawer.dart';
 import '../../constants/programs_home_view.dart';
 import '../../models/AllProgramsModel.dart';
+import '../../models/MainCategoriesModel.dart';
 
 class ProgramsScreen extends StatefulWidget {
   const ProgramsScreen({super.key});
@@ -24,24 +25,30 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   AllProgramsItemList? allProgramsItemList;
+  MainCategoryItemList? mainCategoriesModel;
 
   bool get = false;
+  bool get2 = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..GetAllPrograms(),
+      create: (BuildContext context) => AppCubit()..GetAllPrograms()..GetMainCategories(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, state) {
           if(state is GetAllProgramsSuccessState){
             allProgramsItemList = state.allProgramsItemList;
             get = true;
           }
+          if(state is GetMainCategoriesSuccessState){
+            mainCategoriesModel = state.mainCategoriesModel;
+            get2 = true;
+          }
         },
         builder: (BuildContext context, state) => Scaffold(
           backgroundColor: const Color.fromRGBO(3, 7, 43, 1.0),
           key: _scaffoldKey,
-          drawer: MyDrawer(context: context, inPrograms: true),
+          drawer: get && get2? MyDrawer(context: context, inPrograms: true, allProgramsItemList: allProgramsItemList!, mainCategoriesModel: mainCategoriesModel!) : const CircularProgressIndicator(),
           appBar: AppBar(
             backgroundColor: const Color.fromRGBO(3, 7, 43, 1.0),
             elevation: 0,

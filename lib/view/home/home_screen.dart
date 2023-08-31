@@ -5,14 +5,18 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:text_scroll/text_scroll.dart';
 import '../../bloc/cubit.dart';
 import '../../bloc/state.dart';
 import '../../constants/drawer.dart';
 import '../../constants/programs_view.dart';
 import '../../constants/slider_card.dart';
 import '../../constants/view.dart';
+import '../../models/AdsModel.dart';
+import '../../models/AllProgramsModel.dart';
 import '../../models/MainCategoriesModel.dart';
 import '../../models/SliderModel.dart';
+import '../../models/UrgentModel.dart';
 import '../live/live_screen.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -30,16 +34,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   MainCategoryItemList? mainCategoriesModel;
   SliderItemList? sliderItemList;
+  AllProgramsItemList? allProgramsItemList;
+  AdsItemList? adsItemList;
+  UrgentItemList? urgentItemList;
   bool get_main_cat = false;
   bool get_slider = false;
+  bool get_programs = false;
+  bool get_ads = false;
+  bool get_urgent = false;
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   bool x = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  String urgent = "";
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..GetMainCategories()..GetSlider(),
+      create: (BuildContext context) => AppCubit()..GetMainCategories()..GetSlider()..GetAllPrograms()..GetAds()..GetUrgent(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, state) {
           if(state is GetMainCategoriesSuccessState){
@@ -50,11 +62,26 @@ class _HomeScreenState extends State<HomeScreen> {
             sliderItemList = state.sliderItemList;
             get_slider = true;
           }
+          if(state is GetAllProgramsSuccessState){
+            allProgramsItemList = state.allProgramsItemList;
+            get_programs = true;
+          }
+          if(state is GetAdsSuccessState){
+            adsItemList = state.adsItemList;
+            get_ads = true;
+          }
+          if(state is GetUrgentSuccessState){
+            urgentItemList = state.urgentItemList;
+            urgent = "";
+            for(int i = 0; i < urgentItemList!.urgentModel!.length; i++) {
+              urgent += "${urgentItemList!.urgentModel![i].head!} -- ";
+            }
+          }
         },
         builder: (BuildContext context, state) => Scaffold(
           backgroundColor: Colors.white,
           key: _scaffoldKey,
-          drawer: MyDrawer(context: context, inHome: true),
+          drawer: get_main_cat && get_programs? MyDrawer(context: context, inHome: true, mainCategoriesModel: mainCategoriesModel!, allProgramsItemList: allProgramsItemList!) : const CircularProgressIndicator(),
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: 0,
@@ -81,8 +108,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             title: Image.asset("assets/images/icon.png", scale: 4,),
           ),
+          bottomSheet: Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Container(
+              color: Colors.red,
+              child: TextScroll(
+                urgent,
+                mode: TextScrollMode.endless,
+                textDirection: TextDirection.rtl,
+                style: const TextStyle(color: Colors.white),
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
           body: ConditionalBuilder(
-            condition: get_main_cat && get_slider,
+            condition: get_main_cat && get_slider && get_ads,
             fallback: (context) => const Center(child: CircularProgressIndicator()),
             builder: (context) => SmartRefresher(
               enablePullDown: true,
@@ -101,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
 
                     if(sliderItemList!.sliderModel!.isNotEmpty) Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
                       child: CarouselSlider.builder(
                         itemCount: sliderItemList!.sliderModel!.length,
                         options: CarouselOptions(
@@ -149,8 +189,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25.r),
-                                color: selectedIndex == index ? const Color.fromRGBO(42, 64, 155, 1) : const Color.fromRGBO(241, 241, 241, 1)
+                                  borderRadius: BorderRadius.circular(25.r),
+                                  color: selectedIndex == index ? const Color.fromRGBO(42, 64, 155, 1) : const Color.fromRGBO(241, 241, 241, 1)
                               ),
                               child: Center(
                                 child: Padding(
@@ -180,7 +220,39 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     if(mainCategoriesModel!.mainCategoryModel![selectedIndex].child!.isEmpty && !x) ProgramsView(id: mainCategoriesModel!.mainCategoryModel![selectedIndex].id!, name: mainCategoriesModel!.mainCategoryModel![selectedIndex].name!),
 
-                    SizedBox(height: 30.h,),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Text("اعلانات", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20.sp),),
+                        ],
+                      ),
+                    ),
+
+                    if(adsItemList!.adsModel!.isNotEmpty) CarouselSlider.builder(
+                      itemCount: adsItemList!.adsModel!.length,
+                      options: CarouselOptions(
+                        enableInfiniteScroll: true,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 0.3,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                      ),
+                      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage("http://dot.medsec.co/${adsItemList!.adsModel![itemIndex].img}"),
+                              fit: BoxFit.contain
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 50.h,),
                   ],
                 ),
               ),

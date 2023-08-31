@@ -2,6 +2,7 @@
 import 'package:dot/bloc/state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../dio/dio_helper.dart';
+import '../models/AdsModel.dart';
 import '../models/AllNewsByCategoryModel.dart';
 import '../models/AllProgramsModel.dart';
 import '../models/MainCategoriesModel.dart';
@@ -9,6 +10,7 @@ import '../models/NewsDetailsModel.dart';
 import '../models/ProgramModel.dart';
 import '../models/SettingsModel.dart';
 import '../models/SliderModel.dart';
+import '../models/UrgentModel.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialState());
@@ -140,6 +142,42 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetProgramSuccessState(programModel!));
     }).catchError((error) {
       emit(GetProgramErrorState(error.toString()));
+      print("******************************");
+      print(error.toString());
+      print("******************************");
+    });
+  }
+
+
+  AdsItemList? adsItemList;
+
+  void GetAds() {
+    emit(GetAdsLoadingState());
+    DioHelper.getData(
+      url: 'api/adds',
+    ).then((value) {
+      adsItemList = AdsItemList.fromJson(value.data);
+      emit(GetAdsSuccessState(adsItemList!));
+    }).catchError((error) {
+      emit(GetAdsErrorState(error.toString()));
+      print("******************************");
+      print(error.toString());
+      print("******************************");
+    });
+  }
+
+
+  UrgentItemList? urgentItemList;
+
+  void GetUrgent() {
+    emit(GetUrgentLoadingState());
+    DioHelper.getData(
+      url: 'api/tickers',
+    ).then((value) {
+      urgentItemList = UrgentItemList.fromJson(value.data);
+      emit(GetUrgentSuccessState(urgentItemList!));
+    }).catchError((error) {
+      emit(GetUrgentErrorState(error.toString()));
       print("******************************");
       print(error.toString());
       print("******************************");

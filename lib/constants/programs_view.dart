@@ -111,7 +111,7 @@ class ProgramsView extends StatelessWidget {
                 ),
 
                 SizedBox(
-                  height: 250.h,
+                  height: 260.h,
                   child: ListView.builder(
                     itemCount: allNewsByCategoryModel!.data!.length,
                     scrollDirection: Axis.horizontal,
