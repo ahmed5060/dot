@@ -60,7 +60,7 @@ class ProgramsCard extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               image: DecorationImage(
-                                  image: NetworkImage("http://dot.medsec.co/${programModel!.episodes![index].img}"),
+                                  image: NetworkImage("http://dot-tv.net/${programModel!.episodes![index].img}"),
                                   fit: BoxFit.cover
                               ),
                             ),

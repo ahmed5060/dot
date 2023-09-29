@@ -5,7 +5,7 @@ class DioHelper {
 
   static void init() {
     dio = Dio(BaseOptions(
-      baseUrl: "http://dot.medsec.co/",
+      baseUrl: "http://dot-tv.net/",
       receiveDataWhenStatusError: true,
       headers: {"Accept": "application/json", "Content-Type": "application/json"},
     ));

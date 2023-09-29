@@ -56,7 +56,7 @@ class NewsDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r),
                         image: DecorationImage(
-                            image: NetworkImage("http://dot.medsec.co/${newsDetailsModel!.img!}"),
+                            image: NetworkImage("http://dot-tv.net/${newsDetailsModel!.img!}"),
                             fit: BoxFit.cover
                         ),
                       ),
