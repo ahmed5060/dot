@@ -49,6 +49,8 @@ dependencies:
   carousel_slider: ^4.2.1
   pod_player: ^0.2.1
   text_scroll: ^0.2.0
+  youtube_player_flutter: ^8.1.2
+  html: ^0.15.0
 
 flutter_launcher_icons:
   android: "launcher_icon"

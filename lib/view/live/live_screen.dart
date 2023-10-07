@@ -2,10 +2,12 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../bloc/cubit.dart';
 import '../../bloc/state.dart';
 import '../../models/SettingsModel.dart';
-import 'package:pod_player/pod_player.dart';
+import 'package:html/parser.dart' as htmlParser;
+import 'package:html/dom.dart' as html;
 
 class LiveScreen extends StatefulWidget {
   const LiveScreen({super.key});
@@ -18,13 +20,7 @@ class _LiveScreenState extends State<LiveScreen> {
 
   SettingsModel? settingsModel;
 
-  late final PodPlayerController controller;
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  YoutubePlayerController? _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +30,24 @@ class _LiveScreenState extends State<LiveScreen> {
         listener: (BuildContext context, state) {
           if(state is GetSettingsSuccessState){
             settingsModel = state.settingsModel;
-            controller = PodPlayerController(
-              playVideoFrom: PlayVideoFrom.network(
-                settingsModel!.livechat!.toString(),
+            String? extractSrcFromIframe(String htmlString) {
+              final document = htmlParser.parse(htmlString);
+              final iframeElement = document.querySelector('iframe');
+
+              if (iframeElement != null) {
+                final srcAttribute = iframeElement.attributes['src'];
+                return srcAttribute;
+              }
+
+              return null; // Return null if no iframe tag is found
+            }
+            _controller = YoutubePlayerController(
+              initialVideoId: YoutubePlayer.convertUrlToId(extractSrcFromIframe(state.settingsModel.livechat!)!)!,
+              flags: const YoutubePlayerFlags(
+                autoPlay: true,
+                mute: false,
               ),
-            )..initialise();
+            );
           }
         },
         builder: (BuildContext context, state) =>Scaffold(
@@ -61,7 +70,10 @@ class _LiveScreenState extends State<LiveScreen> {
             builder: (context) => Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PodVideoPlayer(controller: controller),
+                YoutubePlayer(
+                  controller: _controller!,
+                  showVideoProgressIndicator: true,
+                ),
               ],
             ),
           ),
