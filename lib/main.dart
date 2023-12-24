@@ -1,4 +1,8 @@
+import 'package:dot/cache_helper/cache_helper.dart';
+import 'package:dot/constants/functions.dart';
 import 'package:dot/view/home/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,11 +11,27 @@ import 'bloc/bloc_observer.dart';
 import 'bloc/cubit.dart';
 import 'bloc/state.dart';
 import 'dio/dio_helper.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
+
+  await Firebase.initializeApp();
+
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
+  await CacheHelper.init();
   runApp(const MyApp());
 }
 

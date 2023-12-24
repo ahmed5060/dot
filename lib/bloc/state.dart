@@ -121,3 +121,9 @@ class GetUrgentErrorState extends AppStates {
   final String error;
   GetUrgentErrorState(this.error);
 }
+
+class SendTokenLoadingState extends AppStates {}
+
+class SendTokenSuccessState extends AppStates {}
+
+class SendTokenErrorState extends AppStates {}

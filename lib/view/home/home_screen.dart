@@ -2,6 +2,7 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:dot/cache_helper/cache_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,12 +49,40 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String urgent = "";
 
+  bool isFirst = true;
+
+  @override
+  void initState() {
+    var first = CacheHelper.getData(key: 'isFirst');
+    if(first != null) {
+      isFirst = first;
+    }
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit()..GetMainCategories()..GetSlider()..GetAllPrograms()..GetAds()..GetUrgent(),
+      create: (BuildContext context) {
+        if(isFirst){
+          return AppCubit()..GetMainCategories()..GetSlider()..GetAllPrograms()..GetAds()..GetUrgent()..SendToken();
+        }else{
+          return AppCubit()..GetMainCategories()..GetSlider()..GetAllPrograms()..GetAds()..GetUrgent();
+        }
+      },
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, state) {
+          if(state is SendTokenSuccessState){
+            isFirst = false;
+            CacheHelper.saveData(
+              key: 'isFirst',
+              value: isFirst,
+            ).then((value) {
+            }).catchError((error) {
+              print(error.toString());
+            });
+          }
           if(state is GetMainCategoriesSuccessState){
             mainCategoriesModel = state.mainCategoriesModel;
             get_main_cat = true;

@@ -1,5 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
+import 'dart:developer';
+
 import 'package:dot/bloc/state.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../dio/dio_helper.dart';
 import '../models/AdsModel.dart';
@@ -178,6 +181,28 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetUrgentSuccessState(urgentItemList!));
     }).catchError((error) {
       emit(GetUrgentErrorState(error.toString()));
+      print("******************************");
+      print(error.toString());
+      print("******************************");
+    });
+  }
+
+  void SendToken() async{
+    emit(SendTokenLoadingState());
+
+    String? tokenDevices = await FirebaseMessaging.instance.getToken();
+
+    log(tokenDevices!);
+
+    DioHelper.postData(
+      url: 'api/token',
+      data: {
+        "token": tokenDevices
+      }
+    ).then((value) {
+      emit(SendTokenSuccessState());
+    }).catchError((error) {
+      emit(SendTokenErrorState());
       print("******************************");
       print(error.toString());
       print("******************************");
