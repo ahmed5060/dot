@@ -33,15 +33,15 @@ class NewsDetailsModel {
     }
   }
   int? id;
-  String? head;
-  String? body;
-  String? img;
+  dynamic head;
+  dynamic body;
+  dynamic img;
   dynamic categoryId;
   dynamic slider;
-  String? tags;
-  String? createdAt;
-  String? updatedAt;
-  String? views;
+  dynamic tags;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic views;
   dynamic draft;
   List<Categories>? categories;
 
@@ -75,7 +75,7 @@ class Categories {
     name = json['name'];
     pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
   }
-  String? name;
+  dynamic name;
   Pivot? pivot;
 
   Map<String, dynamic> toJson() {
@@ -98,8 +98,8 @@ class Pivot {
     postId = json['post_id'];
     categoryId = json['category_id'];
   }
-  String? postId;
-  String? categoryId;
+  dynamic postId;
+  dynamic categoryId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

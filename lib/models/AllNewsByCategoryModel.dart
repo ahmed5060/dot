@@ -34,12 +34,12 @@ class AllNewsByCategoryModel {
   }
   int? currentPage;
   List<Data>? data;
-  String? firstPageUrl;
+  dynamic firstPageUrl;
   int? from;
   int? lastPage;
-  String? lastPageUrl;
+  dynamic lastPageUrl;
   dynamic nextPageUrl;
-  String? path;
+  dynamic path;
   int? perPage;
   dynamic prevPageUrl;
   int? to;
@@ -94,15 +94,15 @@ class Data {
     draft = json['draft'];
   }
   int? id;
-  String? head;
-  String? body;
-  String? img;
+  dynamic head;
+  dynamic body;
+  dynamic img;
   dynamic categoryId;
   dynamic slider;
-  String? tags;
-  String? createdAt;
-  String? updatedAt;
-  String? views;
+  dynamic tags;
+  dynamic createdAt;
+  dynamic updatedAt;
+  dynamic views;
   dynamic draft;
 
   Map<String, dynamic> toJson() {

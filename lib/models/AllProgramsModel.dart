@@ -46,13 +46,13 @@ class AllProgramsModel {
     }
   }
   int? id;
-  String? name;
-  String? img;
+  dynamic name;
+  dynamic img;
   dynamic parentId;
-  String? menu;
+  dynamic menu;
   dynamic ordered;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   List<Child>? child;
   List<Episodes>? episodes;
 
@@ -107,16 +107,16 @@ class Episodes {
     pivot = json['pivot'] != null ? Pivot.fromJson(json['pivot']) : null;
   }
   int? id;
-  String? head;
-  String? body;
+  dynamic head;
+  dynamic body;
   dynamic video;
-  String? img;
+  dynamic img;
   dynamic categoryId;
   dynamic slider;
-  String? tags;
-  String? views;
-  String? createdAt;
-  String? updatedAt;
+  dynamic tags;
+  dynamic views;
+  dynamic createdAt;
+  dynamic updatedAt;
   Pivot? pivot;
 
   Map<String, dynamic> toJson() {
@@ -149,8 +149,8 @@ class Pivot {
     programId = json['program_id'];
     episodeId = json['episode_id'];
   }
-  String? programId;
-  String? episodeId;
+  dynamic programId;
+  dynamic episodeId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -183,13 +183,13 @@ class Child {
     updatedAt = json['updated_at'];
   }
   int? id;
-  String? name;
-  String? img;
-  String? parentId;
-  String? menu;
+  dynamic name;
+  dynamic img;
+  dynamic parentId;
+  dynamic menu;
   dynamic ordered;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

@@ -40,21 +40,21 @@ class SettingsModel {
     youtube = json['youtube'];
   }
   int? id;
-  String? sliderCount;
-  String? tickerStatus;
+  dynamic sliderCount;
+  dynamic tickerStatus;
   dynamic facebook;
   dynamic twitter;
   dynamic linkedin;
   dynamic pinterest;
   dynamic instagram;
-  String? livechat;
+  dynamic livechat;
   dynamic address;
   dynamic sate;
   dynamic vFreq;
   dynamic hFreq;
   dynamic phone;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   dynamic desc;
   dynamic youtube;
 

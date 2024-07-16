@@ -43,15 +43,15 @@ class MainCategoriesModel {
     }
   }
   int? id;
-  String? name;
-  String? img;
+  dynamic name;
+  dynamic img;
   dynamic parentId;
-  String? menu;
-  String? hot;
-  String? most;
+  dynamic menu;
+  dynamic hot;
+  dynamic most;
   dynamic ordered;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
   List<Child>? child;
 
   Map<String, dynamic> toJson() {
@@ -100,15 +100,15 @@ class Child {
     updatedAt = json['updated_at'];
   }
   int? id;
-  String? name;
-  String? img;
-  String? parentId;
-  String? menu;
-  String? hot;
-  String? most;
+  dynamic name;
+  dynamic img;
+  dynamic parentId;
+  dynamic menu;
+  dynamic hot;
+  dynamic most;
   dynamic ordered;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

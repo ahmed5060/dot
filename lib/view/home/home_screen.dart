@@ -274,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) => Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage("http://dot-tv.net/${adsItemList!.adsModel![itemIndex].img}"),
+                              image: NetworkImage("http://dot-tv.net.orbit-mobile.co${adsItemList!.adsModel![itemIndex].img}"),
                               fit: BoxFit.contain
                           ),
                         ),

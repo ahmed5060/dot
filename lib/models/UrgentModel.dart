@@ -24,8 +24,8 @@ class UrgentModel {
     category = json['category'] != null ? Category.fromJson(json['category']) : null;
   }
   int? id;
-  String? head;
-  String? categoryId;
+  dynamic head;
+  dynamic categoryId;
   Category? category;
 
   Map<String, dynamic> toJson() {
@@ -67,15 +67,15 @@ class Category {
     updatedAt = json['updated_at'];
   }
   int? id;
-  String? name;
-  String? img;
+  dynamic name;
+  dynamic img;
   dynamic parentId;
-  String? menu;
-  String? hot;
-  String? most;
+  dynamic menu;
+  dynamic hot;
+  dynamic most;
   dynamic ordered;
-  String? createdAt;
-  String? updatedAt;
+  dynamic createdAt;
+  dynamic updatedAt;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

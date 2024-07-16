@@ -27,7 +27,7 @@ class SliderCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.r),
           image: DecorationImage(
-              image: NetworkImage("http://dot-tv.net/$image"),
+              image: NetworkImage("http://dot-tv.net.orbit-mobile.co$image"),
               fit: BoxFit.cover
           ),
         ),
