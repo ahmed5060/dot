@@ -39,7 +39,7 @@ class NewsCard2 extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(10.r), topRight: Radius.circular(10.r)),
                     image: DecorationImage(
-                        image: NetworkImage("http://dot-tv.net.orbit-mobile.co/$image"),
+                        image: NetworkImage("http://dot-tv.net.orbit-mobile.co/public$image"),
                         fit: BoxFit.cover
                     ),
                   ),

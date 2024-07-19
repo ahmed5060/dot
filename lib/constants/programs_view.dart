@@ -69,7 +69,7 @@ class ProgramsView extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
                       image: DecorationImage(
-                          image: NetworkImage("http://dot-tv.net.orbit-mobile.co/${allNewsByCategoryModel!.data![0].img}"),
+                          image: NetworkImage("http://dot-tv.net.orbit-mobile.co/public${allNewsByCategoryModel!.data![0].img}"),
                           fit: BoxFit.cover
                       ),
                     ),

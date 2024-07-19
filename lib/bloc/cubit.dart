@@ -1,6 +1,4 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
-import 'dart:developer';
-
 import 'package:dot/bloc/state.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -191,8 +189,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(SendTokenLoadingState());
 
     String? tokenDevices = await FirebaseMessaging.instance.getToken();
-
-    log(tokenDevices!);
 
     DioHelper.postData(
       url: 'api/token',

@@ -69,7 +69,7 @@ class _AllNewsScreenState extends State<AllNewsScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.r),
                           image: DecorationImage(
-                              image: NetworkImage("http://dot-tv.net.orbit-mobile.co/${allNewsByCategoryModel!.data![0].img}"),
+                              image: NetworkImage("http://dot-tv.net.orbit-mobile.co/public${allNewsByCategoryModel!.data![0].img}"),
                               fit: BoxFit.cover
                           ),
                         ),
@@ -136,7 +136,7 @@ class _AllNewsScreenState extends State<AllNewsScreen> {
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(8.r),
                                               image: DecorationImage(
-                                                  image: NetworkImage("http://dot-tv.net.orbit-mobile.co/${allNewsByCategoryModel!.data![index].img}"),
+                                                  image: NetworkImage("http://dot-tv.net.orbit-mobile.co/public${allNewsByCategoryModel!.data![index].img}"),
                                                   fit: BoxFit.cover
                                               ),
                                             ),

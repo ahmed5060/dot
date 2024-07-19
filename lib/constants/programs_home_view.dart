@@ -96,7 +96,7 @@ class ProgramsHomeView extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   image: DecorationImage(
-                                      image: NetworkImage("http://dot-tv.net.orbit-mobile.co${programModel!.episodes![index].img}"),
+                                      image: NetworkImage("http://dot-tv.net.orbit-mobile.co/public${programModel!.episodes![index].img}"),
                                       fit: BoxFit.cover
                                   ),
                                 ),
